@@ -20,7 +20,7 @@ public interface EquipeRepository extends JpaRepository<Equipe,Integer> {
 	@Query("Select equipe from Equipe equipe join fetch equipe.ext where equipe.id=:id")
 	public Optional<Equipe> findEquipeWithMatchExt(@Param("id") Integer  id);
 	
-	@Query("Select equipe from Equipe equipe join fetch equipe.listJoueur ")
+	@Query("Select distinct equipe from Equipe equipe join fetch equipe.listJoueur ")
 	public List<Equipe> findAllWithAll();
 	
 	

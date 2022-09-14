@@ -27,6 +27,7 @@ import formation.gestionFoot.model.Defenseur;
 import formation.gestionFoot.model.Entraineur;
 import formation.gestionFoot.model.Equipe;
 import formation.gestionFoot.model.Gardien;
+import formation.gestionFoot.model.Joueur;
 import formation.gestionFoot.model.Match;
 import formation.gestionFoot.model.Milieu;
 import formation.gestionFoot.model.Pays;
@@ -244,6 +245,14 @@ public class EquipeRestController {
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
+		
+		Equipe equipe = equipeService.getById(id);
+		List<Joueur> listJoueur = equipe.getListJoueur();
+		for (Joueur joueur : listJoueur) {
+			joueur.setEquipe(null);
+		}
+		equipe.setListJoueur(null);
+		equipeService.update(equipe);
 		equipeService.deleteById(id);
 	}
 	

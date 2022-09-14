@@ -43,7 +43,6 @@ public class EntraineurRestController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
 	@JsonView(JsonViews.Base.class)
 	@GetMapping("")
 	public List<Entraineur> getAll() {
