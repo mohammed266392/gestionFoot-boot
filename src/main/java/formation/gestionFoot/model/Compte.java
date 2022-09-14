@@ -1,28 +1,44 @@
 package formation.gestionFoot.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import formation.gestionFoot.jsonviews.JsonViews;
+
 @Entity
 public class Compte {
 	
+	 @JsonView(JsonViews.Base.class)
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Integer id;
 	 
+	 @JsonView(JsonViews.Base.class)
+	 @Column(length = 20, nullable = false, unique = true)
 	 private String login;
 	 
+	 @JsonView(JsonViews.Base.class)
+	 @Column(length = 120, nullable = false)
 	 private String password;
+
+	 @JsonView(JsonViews.Base.class)
+	 private String email;
 	 
-	 private String mail;
+	 @JsonView(JsonViews.Base.class)
+	 @Column(nullable = false)
+	 private Boolean hasEquipe = false;
 
 	public Compte(Integer id, String login, String password) {
 		super();
 		this.id = id;
 		this.login = login;
 		this.password = password;
+		this.hasEquipe = false;
 	}
 
 	public Compte() {}
@@ -52,12 +68,12 @@ public class Compte {
 		this.password = password;
 	}
 
-	public String getMail() {
-		return mail;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmail(String mail) {
+		this.email = mail;
 	}
 	
 
