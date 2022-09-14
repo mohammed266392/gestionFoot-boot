@@ -16,11 +16,9 @@ public class Arbitre extends Personne {
 	@JsonView(JsonViews.Base.class)
 	private double impartialite;
 	
+	@JsonView(JsonViews.ArbitreWithMatch.class)
 	@OneToMany(mappedBy="arbitre")
 	private List<Match> listeMatchArbitres;
-	
-	 
-	
 	
 	public Arbitre(String nom, String prenom, LocalDate naissance, double impartialite){
 		super(nom,prenom,naissance);

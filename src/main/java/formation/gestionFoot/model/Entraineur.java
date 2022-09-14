@@ -26,10 +26,13 @@ public class Entraineur extends Personne {
 	@JsonView(JsonViews.Base.class)
 	private double maitriseTactique;
 	
+	@JsonView(JsonViews.EntraineurWithEquipe.class)
 	@OneToOne
 	private Equipe equipe;
 	
 	
+	
+
 	public Entraineur(String nom, String prenom, LocalDate naissance, double pedagogie, double experience,
 			double ecoute, double maitriseTechnique, double maitriseTactique) {
 		super(nom, prenom, naissance);
@@ -41,6 +44,14 @@ public class Entraineur extends Personne {
 	}
 
 	public Entraineur() {}
+	
+	public Equipe getEquipe() {
+		return equipe;
+	}
+
+	public void setEquipe(Equipe equipe) {
+		this.equipe = equipe;
+	}
 	
 	public double getPedagogie() {
 		return pedagogie;

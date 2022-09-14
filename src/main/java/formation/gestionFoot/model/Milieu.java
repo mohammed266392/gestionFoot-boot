@@ -6,13 +6,18 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import formation.gestionFoot.jsonviews.JsonViews;
+
 @Entity
 public class Milieu extends Joueur {
 	
-	
+	@JsonView(JsonViews.Base.class)
 	@Column(length = 10, nullable = false)
 	private double tauxEspace;
 	
+	@JsonView(JsonViews.Base.class)
 	@Column(length = 10, nullable = false)
 	private double tauxTransmissionAttaquant;
 

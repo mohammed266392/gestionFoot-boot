@@ -4,10 +4,16 @@ import java.time.LocalDate;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import formation.gestionFoot.jsonviews.JsonViews;
+
 @Entity
 public class Attaquant extends Joueur {
 	
+	@JsonView(JsonViews.Base.class)
 	private double tauxAssist;
+	@JsonView(JsonViews.Base.class)
 	private double tauxBut;
 	
 	

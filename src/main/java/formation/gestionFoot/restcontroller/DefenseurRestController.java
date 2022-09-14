@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import formation.gestionFoot.exception.DefenseurException;
+import formation.gestionFoot.jsonviews.JsonViews;
 import formation.gestionFoot.model.Defenseur;
 import formation.gestionFoot.service.DefenseurService;
 
@@ -31,10 +34,12 @@ public class DefenseurRestController {
 	
 	
 	@GetMapping("")
+	@JsonView(JsonViews.Base.class)
 	public List<Defenseur> getAll() {
 		return defenseurService.getAll();
 	}
 	@GetMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public Defenseur getById(@PathVariable Integer id) {
 		
 		try {
@@ -46,11 +51,13 @@ public class DefenseurRestController {
 	
 	
 	@PostMapping("")
+	@JsonView(JsonViews.Base.class)
 	public Defenseur create(@RequestBody Defenseur defenseur) {
 		return defenseurService.create(defenseur);
 	}
 	
 	@PutMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public Defenseur update(@RequestBody Defenseur defenseur, @PathVariable Integer id) {
 		try {
 			Defenseur DefenseurEnBase = defenseurService.getById(id);
@@ -64,6 +71,7 @@ public class DefenseurRestController {
 	}
 	
 	@PatchMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
     public Defenseur partialUpdate(@RequestBody Map<String, Object> fields,@PathVariable Integer id ) {
         try {
             Defenseur fourni = defenseurService.getById(id);
@@ -82,6 +90,7 @@ public class DefenseurRestController {
     }
 	
 	@DeleteMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public void delete(@PathVariable Integer id) {
 		defenseurService.deleteById(id);
 	}

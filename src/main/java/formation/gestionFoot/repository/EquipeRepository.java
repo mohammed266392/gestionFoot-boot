@@ -1,5 +1,6 @@
 package formation.gestionFoot.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,11 @@ public interface EquipeRepository extends JpaRepository<Equipe,Integer> {
 	
 	@Query("Select equipe from Equipe equipe join fetch equipe.ext where equipe.id=:id")
 	public Optional<Equipe> findEquipeWithMatchExt(@Param("id") Integer  id);
+	
+	@Query("Select equipe from Equipe equipe join fetch equipe.listJoueur ")
+	public List<Equipe> findAllWithAll();
+	
+	
 	
 }
 

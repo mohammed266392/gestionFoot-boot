@@ -24,12 +24,15 @@ public class Match {
 	@ManyToOne
 	private Arbitre arbitre;
 	
+	@JsonView(JsonViews.MatchWithEquipe.class)
 	@ManyToOne
 	private Equipe equipeDom;
 	
+	@JsonView(JsonViews.MatchWithEquipe.class)
 	@ManyToOne
 	private Equipe equipeExt;
 	
+	@JsonView(JsonViews.Base.class)
 	@ManyToOne
 	private Stade stade;
 	

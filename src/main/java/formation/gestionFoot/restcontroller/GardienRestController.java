@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import formation.gestionFoot.exception.GardienException;
+import formation.gestionFoot.jsonviews.JsonViews;
 import formation.gestionFoot.model.Gardien;
 import formation.gestionFoot.service.GardienService;
 
@@ -31,10 +34,12 @@ public class GardienRestController {
 	
 	
 	@GetMapping("")
+	@JsonView(JsonViews.Base.class)
 	public List<Gardien> getAll() {
 		return gardienService.getAll();
 	}
 	@GetMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public Gardien getById(@PathVariable Integer id) {
 		
 		try {
@@ -46,11 +51,14 @@ public class GardienRestController {
 	
 	
 	@PostMapping("")
+	@JsonView(JsonViews.Base.class)
 	public Gardien create(@RequestBody Gardien gardien) {
+		//System.out.println("mon gardient de rest : "+gardien);
 		return gardienService.create(gardien);
 	}
 	
 	@PutMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public Gardien update(@RequestBody Gardien Gardien, @PathVariable Integer id) {
 		try {
 			Gardien GardienEnBase = gardienService.getById(id);
@@ -64,6 +72,7 @@ public class GardienRestController {
 	}
 	
 	@PatchMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
     public Gardien partialUpdate(@RequestBody Map<String, Object> fields,@PathVariable Integer id ) {
         try {
             Gardien fourni = gardienService.getById(id);
@@ -82,6 +91,7 @@ public class GardienRestController {
     }
 	
 	@DeleteMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public void delete(@PathVariable Integer id) {
 		gardienService.deleteById(id);
 	}

@@ -26,6 +26,7 @@ public class GardienService {
 	}
 
 	public Gardien create(Gardien gardien) {
+		System.out.println("mon gardien : "+gardien);
 		return gardienRepo.save(gardien);
 	}
 

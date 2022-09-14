@@ -31,6 +31,10 @@ public class EquipeService {
 	public List<Equipe> getAll() {
 		return equipeRepo.findAll();
 	}
+	public List<Equipe> getAllWithAll() {
+		return equipeRepo.findAllWithAll();
+	}
+
 
 	public Equipe getById(Integer id) {
 		return equipeRepo.findById(id).orElseThrow(EquipeException::new);

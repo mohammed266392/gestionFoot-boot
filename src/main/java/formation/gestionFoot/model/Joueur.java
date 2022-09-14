@@ -4,11 +4,16 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import formation.gestionFoot.jsonviews.JsonViews;
 
 @Entity
+//@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "Joueur")
 public abstract class Joueur extends Personne {
 	
 	@JsonView(JsonViews.Base.class)
@@ -23,9 +28,9 @@ public abstract class Joueur extends Personne {
 	@JsonView(JsonViews.Base.class)
 	protected double mental;
 	
+	//@JsonView(JsonViews.Base.class)
 	@ManyToOne
 	protected Equipe equipe;
-	
 	
 	
 	public Joueur(String nom, String prenom, LocalDate naissance, double physique, double technique, double tactique, double mental){

@@ -15,6 +15,13 @@ public class MatchService {
 	@Autowired
 	private MatchRepository matchRepo;
 	
+	
+	
+	
+	public List<Match> getAllWithEquipe() {
+		return matchRepo.getAllWithEquipe();
+	}
+	
 	public List<Match> getAll() {
 		return matchRepo.findAll();
 	}

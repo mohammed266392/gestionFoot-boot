@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import formation.gestionFoot.exception.AttaquantException;
+import formation.gestionFoot.jsonviews.JsonViews;
 import formation.gestionFoot.model.Attaquant;
 import formation.gestionFoot.service.AttaquantService;
 
@@ -32,6 +35,7 @@ public class AttaquantRestController {
 	private AttaquantService attaquantService;
 	
 	@GetMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public Attaquant getById(@PathVariable Integer id) {
 		try {
 			return attaquantService.getById(id);
@@ -41,11 +45,13 @@ public class AttaquantRestController {
 	}
 	
 	@GetMapping("")
+	@JsonView(JsonViews.Base.class)
 	public List<Attaquant> getAll() {
 		return attaquantService.getAll();
 	}
 	
 	@PostMapping("")
+	@JsonView(JsonViews.Base.class)
 	public Attaquant create(@RequestBody Attaquant attaquant) {
 		return attaquantService.create(attaquant);
 	}
@@ -64,6 +70,7 @@ public class AttaquantRestController {
 	}
 	
 	@PatchMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
     public Attaquant partialUpdateAttaquant(@RequestBody Map<String, Object> fields,@PathVariable Integer id ) {
         try {
             Attaquant fourni = attaquantService.getById(id);

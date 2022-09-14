@@ -9,28 +9,38 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import formation.gestionFoot.jsonviews.JsonViews;
+
 @Entity
 public class Stade {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(JsonViews.Base.class)
 	private Integer id;
 	
 	
 	@Column(length = 100, nullable = false)
+	@JsonView(JsonViews.Base.class)
 	private String nom;
 	
 	
 	@Column(nullable = false)
+	@JsonView(JsonViews.Base.class)
 	private Integer capacite;
 	
 	@Embedded // erreur a partir de la classe addresse.
+	@JsonView(JsonViews.Base.class)
 	private Adresse adresse;
 	
 	@Column(length = 10)
+	@JsonView(JsonViews.Base.class)
 	private double ambiance;
 	
 	@Enumerated(EnumType.STRING)
+	@JsonView(JsonViews.Base.class)
 	private Pays pays;
 	
 	

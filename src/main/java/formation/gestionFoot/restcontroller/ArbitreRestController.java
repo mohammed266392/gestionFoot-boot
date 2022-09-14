@@ -51,6 +51,12 @@ public class ArbitreRestController {
 	}
 	
 	@JsonView(JsonViews.Base.class)
+	@GetMapping("/details")
+	public List<Arbitre> getAllWithMatch() {
+		return arbitreService.getAllWithMatch();
+	}
+	
+	@JsonView(JsonViews.Base.class)
 	@PostMapping("")
 	public Arbitre create(@RequestBody Arbitre arbitre) {
 		return arbitreService.create(arbitre);

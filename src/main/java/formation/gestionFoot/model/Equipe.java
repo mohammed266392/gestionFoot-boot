@@ -16,8 +16,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import formation.gestionFoot.jsonviews.JsonViews;
 
 
-
-
 @Entity
 public class Equipe {
 	

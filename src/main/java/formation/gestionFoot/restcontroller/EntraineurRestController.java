@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import formation.gestionFoot.exception.EntraineurException;
+import formation.gestionFoot.jsonviews.JsonViews;
 import formation.gestionFoot.model.Entraineur;
 import formation.gestionFoot.service.EntraineurService;
 
@@ -31,7 +34,7 @@ public class EntraineurRestController {
 	@Autowired
 	private EntraineurService entraineurService;
 	
-	
+	@JsonView(JsonViews.Base.class)
 	@GetMapping("/{id}")
 	public Entraineur getById(@PathVariable Integer id) {
 		try {
@@ -41,16 +44,19 @@ public class EntraineurRestController {
 		}
 	}
 	
+	@JsonView(JsonViews.Base.class)
 	@GetMapping("")
 	public List<Entraineur> getAll() {
 		return entraineurService.getAll();
 	}
 	
+	@JsonView(JsonViews.Base.class)
 	@PostMapping("")
 	public Entraineur create(@RequestBody Entraineur entraineur) {
 		return entraineurService.create(entraineur);
 	}
 	
+	@JsonView(JsonViews.Base.class)
 	@PutMapping("/{id}")
 	public Entraineur update(@RequestBody Entraineur entraineur, @PathVariable Integer id) {
 		try {
@@ -64,6 +70,7 @@ public class EntraineurRestController {
 		return entraineurService.update(entraineur);
 	}
 	
+	@JsonView(JsonViews.Base.class)
 	@PatchMapping("/{id}")
     public Entraineur partialUpdateEntraineur(@RequestBody Map<String, Object> fields,@PathVariable Integer id ) {
         try {
@@ -82,6 +89,7 @@ public class EntraineurRestController {
 
     }
 	
+	@JsonView(JsonViews.Base.class)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
 		entraineurService.deleteById(id);

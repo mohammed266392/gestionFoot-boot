@@ -20,6 +20,10 @@ public class ArbitreService {
 	public List<Arbitre> getAll() {
 		return arbitreRepo.findAll();
 	}
+	
+	public List<Arbitre> getAllWithMatch() {
+		return arbitreRepo.findAllWithMatch();
+	}
 
 	public Arbitre getById(Integer id) {
 		return arbitreRepo.findById(id).orElseThrow(ArbitreException::new);

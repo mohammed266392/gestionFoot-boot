@@ -29,14 +29,18 @@ public class MatchRestController {
 	@Autowired
 	private MatchService matchService;
 	
-	@Autowired
-	private ArbitreService arbitreService;
 	
 	@JsonView(JsonViews.Base.class)
 	@GetMapping("")
 	public List<Match> getAll() {
 		return matchService.getAll();
 	}
+	@JsonView(JsonViews.MatchWithEquipe.class)
+	@GetMapping("/details")
+	public List<Match> getAllWhithEquipe() {
+		return matchService.getAll();
+	}
+	
 
 	@JsonView(JsonViews.Base.class)
 	@GetMapping("/{id}")

@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import formation.gestionFoot.exception.MilieuException;
+import formation.gestionFoot.jsonviews.JsonViews;
 import formation.gestionFoot.model.Milieu;
 import formation.gestionFoot.service.MilieuService;
 
@@ -30,11 +33,13 @@ public class MilieuRestController {
 	private MilieuService milieuService;
 
 	@GetMapping("")
+	@JsonView(JsonViews.Base.class)
 	public List<Milieu> getAll() {
 		return milieuService.getAll();
 	}
 
 	@GetMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public Milieu getById(@PathVariable Integer id) {
 		try {
 			return milieuService.getById(id);
@@ -44,11 +49,13 @@ public class MilieuRestController {
 	}
 
 	@PostMapping("")
+	@JsonView(JsonViews.Base.class)
 	public Milieu create(@RequestBody Milieu milieu) {
 		return milieuService.create(milieu);
 	}
 
 	@PutMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public Milieu update(@RequestBody Milieu milieu, @PathVariable Integer id) {
 		try {
 			Milieu milieuEnBase = milieuService.getById(id);
@@ -62,6 +69,7 @@ public class MilieuRestController {
 	}
 
 	@PatchMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public Milieu partialUpdate(@RequestBody Map<String, Object> fields, @PathVariable Integer id) {
 		try {
 			Milieu milieu = milieuService.getById(id);
@@ -78,6 +86,7 @@ public class MilieuRestController {
 	}
 
 	@DeleteMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public void delete(@PathVariable Integer id) {
 		milieuService.deleteById(id);
 	}

@@ -26,5 +26,18 @@ public class JsonViews {
 	public static class MatchWithArbitre extends Base {
 		
 	}
+	public static class MatchWithEquipe extends Base {
+			
+	}
+	
+	/***********  ARBITRE   **********************/
+	
+	public static class ArbitreWithMatch extends Base {
+		
+	}
+	/*********** Entraineur **********************/
+	public static class EntraineurWithEquipe extends Base {
+			
+		}
 
 }

@@ -34,5 +34,7 @@ public class JoueurService {
 	public void deleteById(Integer id) {
 		joueurRepo.deleteById(id);
 	}
-	
+	public void findAllWithCaracteristique(Integer id) {
+		joueurRepo.deleteById(id);
+	}
 }

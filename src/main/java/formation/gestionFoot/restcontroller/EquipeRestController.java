@@ -23,15 +23,20 @@ import com.fasterxml.jackson.annotation.JsonView;
 import formation.gestionFoot.exception.EquipeException;
 import formation.gestionFoot.jsonviews.JsonViews;
 import formation.gestionFoot.model.Attaquant;
+import formation.gestionFoot.model.Defenseur;
 import formation.gestionFoot.model.Entraineur;
 import formation.gestionFoot.model.Equipe;
+import formation.gestionFoot.model.Gardien;
 import formation.gestionFoot.model.Match;
+import formation.gestionFoot.model.Milieu;
 import formation.gestionFoot.model.Pays;
 import formation.gestionFoot.service.AttaquantService;
+import formation.gestionFoot.service.DefenseurService;
 import formation.gestionFoot.service.EntraineurService;
 import formation.gestionFoot.service.EquipeService;
 import formation.gestionFoot.service.GardienService;
 import formation.gestionFoot.service.MatchService;
+import formation.gestionFoot.service.MilieuService;
 
 @RestController
 @RequestMapping("/api/equipe")
@@ -45,9 +50,14 @@ public class EquipeRestController {
 	
 	@Autowired
 	private GardienService gardienService;
+	@Autowired
+	private MilieuService milieuService;
 	
 	@Autowired
-	private EntraineurService entaineurService;
+	private DefenseurService defenseurService;
+	
+	@Autowired
+	private EntraineurService entraineurService;
 	
 	@Autowired
 	private MatchService matchService;
@@ -68,44 +78,90 @@ public class EquipeRestController {
 	public List<Equipe> getAll() {
 		return equipeService.getAll();
 	}
-
-	
-	/*@GetMapping("/create")
-//	/api/equipe?idGardien=1&idAttaquant=4&idEntraineur=3
-	public Equipe creatEquipe(	@RequestParam(name = "idGardien") Integer idGardien,
-								@RequestParam(name = "idAttaquant") Integer idAttaquant, 
-								@RequestParam(name = "idEntraineur") Integer idEntraineur ) {
-
-		List<Joueur> listeJoueur = new ArrayList();
-		
-		Gardien j1 = gardienService.getById(idGardien);
-		Attaquant j2 = attaquantService.getById(idAttaquant);
-		Entraineur j3 = entaineurService.getById(idEntraineur);
-		
-		Collections.addAll(listeJoueur,j1,j2);
-		
-		Equipe equipe1 = new Equipe(Pays.France,"Bleu",3,listeJoueur,j3);
-		
-		
-		return equipeService.create(equipe1) ;
-	}*/
-	
+	@GetMapping("/details")
+	@JsonView(JsonViews.EquipeWithJoueurs.class)
+	public List<Equipe> getAllWithAll() {
+		return equipeService.getAllWithAll();
+	}
 	@PostMapping("")
 	@JsonView(JsonViews.Base.class)
 	public Equipe create(@RequestBody Equipe equipe) {
 		return equipeService.create(equipe);
 	}
 	
-	@PostMapping("/{id}/addattaquant")
+	@PostMapping("/{id}/addattaquant/{idAttaquant}")
 	@JsonView(JsonViews.EquipeWithJoueurs.class)
-	public Equipe create(@PathVariable Integer id, @RequestBody Attaquant attaquant) {
+	public Equipe addAttaquanttoEquipe(@PathVariable Integer id, @PathVariable Integer idAttaquant) {
+		
+		Attaquant attaquant = attaquantService.getById(idAttaquant);
 		
 		Equipe equipe = equipeService.getById(id);
+			
 		attaquant.setEquipe(equipe);
 		
-		attaquantService.update(attaquant) ;
+		attaquantService.update(attaquant);
 		
-		return equipeService.getByIdWithJoueurs(id);
+		return equipe;
+	}
+	@PostMapping("/{id}/addGardien/{idGardien}")
+	@JsonView(JsonViews.EquipeWithJoueurs.class)
+	public Equipe addGoaltoEquipe(@PathVariable Integer id, @PathVariable Integer idGardien) {
+		
+		Gardien gardien = gardienService.getById(idGardien);
+		
+		Equipe equipe = equipeService.getById(id);
+			
+		gardien.setEquipe(equipe);
+		
+		gardienService.update(gardien);
+		
+		return equipe;
+	}
+	@PostMapping("/{id}/addMilieu/{idMilieu}")
+	@JsonView(JsonViews.EquipeWithJoueurs.class)
+	public Equipe addMilieutoEquipe(@PathVariable Integer id, @PathVariable Integer idMilieu) {
+		
+		Milieu milieu = milieuService.getById(idMilieu);
+		
+		Equipe equipe = equipeService.getById(id);
+			
+		milieu.setEquipe(equipe);
+		
+		milieuService.update(milieu);
+		
+		return equipe;
+	}
+	@PostMapping("/{id}/addDefenseur/{idDefeseur}")
+	@JsonView(JsonViews.EquipeWithJoueurs.class)
+	public Equipe addDefenseurtoEquipe(@PathVariable Integer id, @PathVariable Integer idDefeseur) {
+		
+		Defenseur defenseur = defenseurService.getById(idDefeseur);
+		
+		Equipe equipe = equipeService.getById(id);
+			
+		defenseur.setEquipe(equipe);
+		
+		defenseurService.update(defenseur);
+		
+		return equipe;
+	}
+	@PostMapping("/{id}/addentraineur/{idEntraineur}")
+	@JsonView(JsonViews.Base.class)
+	public Equipe addEntraineurtoEquipe(@PathVariable Integer id, @PathVariable Integer idEntraineur) {
+		
+		Entraineur entraineur = entraineurService.getById(idEntraineur);
+		
+		Equipe equipe = equipeService.getById(id);
+
+		equipe.setEntraineur(entraineur);
+		
+			
+		entraineur.setEquipe(equipe);
+		
+		entraineurService.update(entraineur);
+		equipeService.update(equipe);
+		
+		return equipe;
 	}
 	
 	@PostMapping("/{id}/matchdom")
