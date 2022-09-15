@@ -7,6 +7,11 @@ public class JsonViews {
 		
 	}
 	
+	/************* COMPTE *************/
+	public static class CompteWithEquipe extends Base{
+		
+	}
+	
 	
 	/************* EQUIPE *************/
 	public static class EquipeWithJoueurs extends Base{
@@ -30,12 +35,12 @@ public class JsonViews {
 			
 	}
 	
-	/***********  ARBITRE   **********************/
+	/*********** ARBITRE **************/
 	
 	public static class ArbitreWithMatch extends Base {
 		
 	}
-	/*********** Entraineur **********************/
+	/*********** ENTRAINEUR ************/
 	public static class EntraineurWithEquipe extends Base {
 			
 		}

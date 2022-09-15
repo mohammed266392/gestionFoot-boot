@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import formation.gestionFoot.exception.CompteException;
+import formation.gestionFoot.exception.EquipeException;
 import formation.gestionFoot.model.Compte;
+import formation.gestionFoot.model.Equipe;
 import formation.gestionFoot.repository.CompteRepository;
 
 
@@ -23,6 +25,10 @@ public class CompteService {
 
 	public Compte getById(Integer id) {
 		return compteRepo.findById(id).orElseThrow(CompteException::new);
+	}
+	
+	public Compte getByIdWithEquipe(Integer id) {
+		return compteRepo.findByIdWithEquipe(id).orElseThrow(CompteException::new);
 	}
 
 	public Compte create(Compte compte) {

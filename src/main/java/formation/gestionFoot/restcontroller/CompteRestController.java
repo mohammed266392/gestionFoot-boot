@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import formation.gestionFoot.exception.CompteException;
 import formation.gestionFoot.jsonviews.JsonViews;
 import formation.gestionFoot.model.Compte;
+import formation.gestionFoot.model.Equipe;
 import formation.gestionFoot.repository.CompteRepository;
 import formation.gestionFoot.restcontroller.dto.LoginDTO;
 import formation.gestionFoot.service.CompteService;
@@ -50,15 +51,11 @@ public class CompteRestController {
 		}
 	}
 	
-	/*@JsonView(JsonViews.Base.class)
-	@GetMapping("/{login}")
-	public Optional<Compte> getByLogin(@PathVariable String login) {
-		try {
-			return compteRepo.findByLogin(login);
-		} catch (CompteException ex) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-		}
-	}*/
+	@GetMapping("{id}/equipe")
+	@JsonView(JsonViews.CompteWithEquipe.class)
+	public Compte getByIdWithEquipe(@PathVariable Integer id) {
+		return compteService.getByIdWithEquipe(id);
+	}
 	
 	@JsonView(JsonViews.Base.class)
 	@GetMapping("")

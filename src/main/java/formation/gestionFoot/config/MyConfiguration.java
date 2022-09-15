@@ -9,32 +9,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SuppressWarnings("deprecation")
 @Configuration
 public class MyConfiguration {
-<<<<<<< Updated upstream
 	
 	 @Bean
-	    public WebMvcConfigurer corsConfigurer() {
-	        return new WebMvcConfigurerAdapter() {
-	            @Override
-	            public void addCorsMappings(CorsRegistry registry) {
-	                registry.addMapping("/**")
-	                        .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
-	            }
-	        };
-	    }
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+            }
+        };
+    }
 
 }
-=======
-
-     @Bean
-        public WebMvcConfigurer corsConfigurer() {
-            return new WebMvcConfigurerAdapter() {
-                @Override
-                public void addCorsMappings(CorsRegistry registry) {
-                    registry.addMapping("/**")
-                            .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
-                }
-            };
-        }
-
-}
->>>>>>> Stashed changes
