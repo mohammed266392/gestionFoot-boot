@@ -112,7 +112,8 @@ public class EquipeRestController {
 		return equipe;
 	}
 	@PostMapping("/{id}/addGardien/{idGardien}")
-	@JsonView(JsonViews.EquipeWithJoueurs.class)
+	//@JsonView(JsonViews.EquipeWithJoueurs.class)
+	@JsonView(JsonViews.JoueurWithEquipe.class)
 	public Equipe addGoaltoEquipe(@PathVariable Integer id, @PathVariable Integer idGardien) {
 		
 		Gardien gardien = gardienService.getById(idGardien);

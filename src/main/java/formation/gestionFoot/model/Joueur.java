@@ -4,10 +4,6 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import formation.gestionFoot.jsonviews.JsonViews;
@@ -28,7 +24,7 @@ public abstract class Joueur extends Personne {
 	@JsonView(JsonViews.Base.class)
 	protected double mental;
 	
-	//@JsonView(JsonViews.Base.class)
+	@JsonView(JsonViews.JoueurWithEquipe.class)
 	@ManyToOne
 	protected Equipe equipe;
 	
@@ -79,12 +75,12 @@ public abstract class Joueur extends Personne {
 	public void setEquipe(Equipe equipe) {
 		this.equipe = equipe;
 	}
-	@Override
-	public String toString() {
-		return "Joueur [physique=" + physique + ", technique=" + technique + ", tactique=" + tactique + ", mental="
-				+ mental + ", equipe=" + equipe + ", id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", naissance="
-				+ naissance + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Joueur [physique=" + physique + ", technique=" + technique + ", tactique=" + tactique + ", mental="
+//				+ mental + ", equipe=" + equipe + ", id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", naissance="
+//				+ naissance + "]";
+//	}
 	
 
 }

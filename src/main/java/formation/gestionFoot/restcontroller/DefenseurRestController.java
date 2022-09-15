@@ -48,7 +48,17 @@ public class DefenseurRestController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+	@GetMapping("/equipe/{id}")
+	@JsonView(JsonViews.Base.class)
+	public List<Defenseur> getAllDefenseurByEquipe(@PathVariable Integer id) {
+		
+		try {
+			return defenseurService.getAllDefenseurByEquipe(id);
+			//return defenseurService.getAllDefenseurByEquipe();
+		}catch (DefenseurException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+	}
 	
 	@PostMapping("")
 	@JsonView(JsonViews.Base.class)

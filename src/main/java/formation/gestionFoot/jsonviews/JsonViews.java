@@ -43,6 +43,10 @@ public class JsonViews {
 	/*********** ENTRAINEUR ************/
 	public static class EntraineurWithEquipe extends Base {
 			
-		}
+	}
+	/*********** Joueur  ************/
+	public static class JoueurWithEquipe extends Base {
+			
+	}
 
 }

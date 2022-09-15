@@ -34,6 +34,18 @@ public class AttaquantRestController {
 	@Autowired
 	private AttaquantService attaquantService;
 	
+	@GetMapping("/equipe/{id}")
+	@JsonView(JsonViews.Base.class)
+	public List<Attaquant> getAllAttaquantByEquipe(@PathVariable Integer id) {
+		
+		try {
+			return attaquantService.getAllAttaquantByEquipe(id);
+			//return defenseurService.getAllDefenseurByEquipe();
+		}catch (AttaquantException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	@GetMapping("/{id}")
 	@JsonView(JsonViews.Base.class)
 	public Attaquant getById(@PathVariable Integer id) {

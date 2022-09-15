@@ -158,12 +158,12 @@ public class Equipe {
 		this.pressing = pressing;
 	}
 
-	@Override
-	public String toString() {
-		return "Equipe [id=" + id + ", pays=" + pays + ", classement=" + classement + ", listJoueur=" + listJoueur
-				+ ", entraineur=" + entraineur + ", couleur=" + couleur + ", dom=" + dom + ", ext=" + ext
-				+ ", cohesion=" + cohesion + ", jeux=" + jeux + ", pressing=" + pressing + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Equipe [id=" + id + ", pays=" + pays + ", classement=" + classement + ", listJoueur=" + listJoueur
+//				+ ", entraineur=" + entraineur + ", couleur=" + couleur + ", dom=" + dom + ", ext=" + ext
+//				+ ", cohesion=" + cohesion + ", jeux=" + jeux + ", pressing=" + pressing + "]";
+//	}
 	
 
 }

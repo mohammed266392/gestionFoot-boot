@@ -20,8 +20,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import formation.gestionFoot.exception.DefenseurException;
 import formation.gestionFoot.exception.MilieuException;
 import formation.gestionFoot.jsonviews.JsonViews;
+import formation.gestionFoot.model.Defenseur;
 import formation.gestionFoot.model.Milieu;
 import formation.gestionFoot.service.MilieuService;
 
@@ -31,6 +33,19 @@ public class MilieuRestController {
 
 	@Autowired
 	private MilieuService milieuService;
+	
+	
+	@GetMapping("/equipe/{id}")
+	@JsonView(JsonViews.Base.class)
+	public List<Milieu> getAllMilieuByEquipe(@PathVariable Integer id) {
+		
+		try {
+			return milieuService.getAllMilieuByEquipe(id);
+			//return defenseurService.getAllDefenseurByEquipe();
+		}catch (MilieuException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+	}
 
 	@GetMapping("")
 	@JsonView(JsonViews.Base.class)

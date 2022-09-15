@@ -1,9 +1,12 @@
 package formation.gestionFoot.restcontroller;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,6 +23,7 @@ import formation.gestionFoot.exception.MatchException;
 import formation.gestionFoot.jsonviews.JsonViews;
 import formation.gestionFoot.model.Arbitre;
 import formation.gestionFoot.model.Compte;
+import formation.gestionFoot.model.Entraineur;
 import formation.gestionFoot.model.Equipe;
 import formation.gestionFoot.model.Match;
 import formation.gestionFoot.service.ArbitreService;
@@ -106,6 +110,25 @@ public class MatchRestController {
 		
 		return matchListe;
 	}
+	
+	@JsonView(JsonViews.Base.class)
+	@PatchMapping("/{id}")
+    public Match partialUpdateMatch(@RequestBody Map<String, Object> fields,@PathVariable Integer id ) {
+        try {
+        	Match fourni = matchService.getById(id);
+            fields.forEach((k, v) -> {
+
+                Field field = ReflectionUtils.findField(Match.class, k);
+                ReflectionUtils.makeAccessible(field);
+                ReflectionUtils.setField(field, fourni, v); // ne fonctionne que pour les types standards
+
+            });
+            return matchService.update(fourni);
+        }catch(RuntimeException ex) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+    }
 	
 	
 }

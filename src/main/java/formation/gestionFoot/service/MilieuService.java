@@ -16,6 +16,9 @@ public class MilieuService {
 	@Autowired
 	private MilieuRepository milieuRepo;
 	
+	public List<Milieu> getAllMilieuByEquipe(Integer id) {
+		return milieuRepo.findAllMilieuByEquipe(id);
+	}
 
 	public List<Milieu> getAll() {
 		return milieuRepo.findAll();

@@ -17,6 +17,14 @@ public class DefenseurService {
 	private DefenseurRepository defenseurRepo;
 	
 
+	
+	//public List<Defenseur> getAllDefenseurByEquipe() {
+	//	return defenseurRepo.findAllDefenseurByEquipe();
+	//}
+	public List<Defenseur> getAllDefenseurByEquipe(Integer id) {
+		return defenseurRepo.findAllDefenseurByEquipe(id);
+	}
+	
 	public List<Defenseur> getAll() {
 		return defenseurRepo.findAll();
 	}

@@ -1,7 +1,6 @@
 package formation.gestionFoot.model;
 import java.time.LocalDate;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonView;

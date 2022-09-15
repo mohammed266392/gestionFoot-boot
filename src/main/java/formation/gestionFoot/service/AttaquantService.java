@@ -15,6 +15,11 @@ public class AttaquantService {
 	@Autowired
 	private AttaquantRepository attaquantRepo;
 
+	
+	
+	public List<Attaquant> getAllAttaquantByEquipe(Integer id) {
+		return attaquantRepo.findAllAttaquantByEquipe(id);
+	}
 	public List<Attaquant> getAll() {
 		return attaquantRepo.findAll();
 	}
