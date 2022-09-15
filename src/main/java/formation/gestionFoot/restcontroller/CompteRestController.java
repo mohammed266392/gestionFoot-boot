@@ -22,12 +22,16 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import formation.gestionFoot.exception.CompteException;
+import formation.gestionFoot.exception.EquipeException;
 import formation.gestionFoot.jsonviews.JsonViews;
 import formation.gestionFoot.model.Compte;
+import formation.gestionFoot.model.Entraineur;
 import formation.gestionFoot.model.Equipe;
+import formation.gestionFoot.model.Pays;
 import formation.gestionFoot.repository.CompteRepository;
 import formation.gestionFoot.restcontroller.dto.LoginDTO;
 import formation.gestionFoot.service.CompteService;
+import formation.gestionFoot.service.EquipeService;
 
 
 @RestController
@@ -40,6 +44,9 @@ public class CompteRestController {
 	
 	@Autowired
 	private CompteRepository compteRepo;
+	
+	@Autowired
+	private EquipeService equipeService;
 	
 	@JsonView(JsonViews.Base.class)
 	@GetMapping("/{id}")
@@ -70,6 +77,7 @@ public class CompteRestController {
 	}
 	
 	@PutMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public Compte update(@RequestBody Compte compte, @PathVariable Integer id) {
 		try {
 			Compte compteEnBase = compteService.getById(id);
@@ -83,15 +91,43 @@ public class CompteRestController {
 	}
 	
 	@PatchMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
+	//@JsonView(JsonViews.CompteWithEquipe.class)
     public Compte partialUpdateCompte(@RequestBody Map<String, Object> fields,@PathVariable Integer id ) {
+		Compte compte = null;
+		try {
+			compte = compteService.getById(id);
+		} catch (CompteException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		
+		final Compte c = compte;
+		Equipe equipe = c.getEquipe();
+		
         try {
-            Compte fourni = compteService.getById(id);
+            //Compte fourni = compteService.getByIdWithEquipe(id);
+        	Compte fourni = compteService.getById(id);
             fields.forEach((k, v) -> {
+            	
+            	if (k.equals("equipe")) {
+    				Field fieldEquipe = ReflectionUtils.findField(Equipe.class,k);
+    				ReflectionUtils.makeAccessible(fieldEquipe);
+    				ReflectionUtils.setField(fieldEquipe,equipe,(Equipe)v);
+    				c.setEquipe((Equipe)v);
+    			/*}else if(k.equals("entraineur")) {
+    				((Map<String, Object>) v).forEach((key, value) -> {
+    					Field fieldEntraineur = ReflectionUtils.findField(Entraineur.class,key);
+    					ReflectionUtils.makeAccessible(fieldEntraineur);
+    					ReflectionUtils.setField(fieldEntraineur,entraineur,value);
+    				});
+    				e.setEntraineur(entraineur);*/
+    			
+    			}else {
 
                 Field field = ReflectionUtils.findField(Compte.class, k);
                 ReflectionUtils.makeAccessible(field);
                 ReflectionUtils.setField(field, fourni, v); // ne fonctionne que pour les types standards
-
+    			}
             });
             return compteService.update(fourni);
         }catch(RuntimeException ex) {
@@ -101,12 +137,14 @@ public class CompteRestController {
     }
 	
 	@DeleteMapping("/{id}")
+	@JsonView(JsonViews.Base.class)
 	public void delete(@PathVariable Integer id) {
 		compteService.deleteById(id);
 	}
 	
 	
 	@PostMapping("/login")
+	@JsonView(JsonViews.CompteWithEquipe.class)
 	public Compte login(@RequestBody LoginDTO loginDTO) {
 		Optional<Compte> optionalCompte = compteRepo.findByLoginAndPassword(loginDTO.getLogin(), loginDTO.getPassword());
 		
@@ -115,6 +153,20 @@ public class CompteRestController {
 		}
 		
 		return optionalCompte.get();
+	}
+	
+	@PatchMapping("{idCompte}/equipe/{idEquipe}")
+	@JsonView(JsonViews.CompteWithEquipe.class)
+	public Compte patchCompteToEquipe(@PathVariable Integer idCompte,@PathVariable Integer idEquipe) {
+		
+		Equipe equipe = equipeService.getById(idEquipe);
+		
+		Compte compte = compteService.getById(idCompte)	;	
+		
+		compte.setEquipe(equipe);
+		compteService.update(compte);
+		
+		return compte;
 	}
 	
 }

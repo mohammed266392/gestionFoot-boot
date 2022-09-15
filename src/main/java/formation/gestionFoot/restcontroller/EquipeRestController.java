@@ -84,6 +84,13 @@ public class EquipeRestController {
 	public List<Equipe> getAllWithAll() {
 		return equipeService.getAllWithAll();
 	}
+	@GetMapping("{id}/details")
+	@JsonView(JsonViews.EquipeWithJoueurs.class)
+	public Equipe getbyIdWithAll(@PathVariable Integer id) {
+		return equipeService.getByIdWithJoueurs(id);
+	}
+	
+	
 	@PostMapping("")
 	@JsonView(JsonViews.Base.class)
 	public Equipe create(@RequestBody Equipe equipe) {

@@ -34,10 +34,12 @@ public class Compte {
 	 @Column(nullable = false)
 	 private Boolean hasEquipe = false;
 	 
-	 @JsonView(JsonViews.CompteWithEquipe.class)
+	 //@JsonView(JsonViews.CompteWithEquipe.class)
+	 @JsonView(JsonViews.Base.class)
 	 @OneToOne
 	 private Equipe equipe;
 		
+
 
 	public Compte(Integer id, String login, String password) {
 		super();
@@ -45,10 +47,27 @@ public class Compte {
 		this.login = login;
 		this.password = password;
 		this.hasEquipe = false;
+
 	}
 
 	public Compte() {}
 	
+
+	public Boolean getHasEquipe() {
+		return hasEquipe;
+	}
+
+	public void setHasEquipe(Boolean hasEquipe) {
+		this.hasEquipe = hasEquipe;
+	}
+
+	public Equipe getEquipe() {
+		return equipe;
+	}
+
+	public void setEquipe(Equipe v) {
+		this.equipe = v;
+	}
 	
 	public Integer getId() {
 		return id;

@@ -25,6 +25,9 @@ public interface EquipeRepository extends JpaRepository<Equipe,Integer> {
 	
 	
 	
+	
+	
+	
 }
 
 

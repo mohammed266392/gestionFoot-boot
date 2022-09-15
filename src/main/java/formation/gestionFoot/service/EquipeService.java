@@ -15,7 +15,9 @@ public class EquipeService {
 	@Autowired
 	private EquipeRepository equipeRepo;
 	
-	
+	public Equipe getbyIdWithAll(Integer id) {
+		return equipeRepo.findEquipeWithJoueurs(id).orElseThrow(EquipeException::new);
+	}
 	public Equipe getByIdWithJoueurs(Integer id) {
 		return equipeRepo.findEquipeWithJoueurs(id).orElseThrow(EquipeException::new);
 	}

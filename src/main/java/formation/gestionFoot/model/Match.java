@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -45,6 +46,10 @@ public class Match {
 	@JsonView(JsonViews.Base.class)
 	private boolean fini = false;
 	
+	@JsonView(JsonViews.Base.class)
+	@ManyToOne
+	private Compte compte;
+	
 	
 	public Match(Arbitre arbitre, Equipe equipeDom, Equipe equipeExt, Stade stade) {
 
@@ -56,7 +61,13 @@ public class Match {
 	public Match() {}
 	
 	
-	
+
+	public Compte getCompte() {
+		return compte;
+	}
+	public void setCompte(Compte compte) {
+		this.compte = compte;
+	}
 	public int getId() {
 		return id;
 	}

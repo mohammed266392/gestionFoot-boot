@@ -16,7 +16,9 @@ public class MatchService {
 	private MatchRepository matchRepo;
 	
 	
-	
+	public List<Match> getMatchByIdCompte(Integer id) {
+		return matchRepo.findMatchByIdCompte(id);
+	}
 	
 	public List<Match> getAllWithEquipe() {
 		return matchRepo.getAllWithEquipe();
